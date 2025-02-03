@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Boot Error</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #a00000;
+            color: grey;
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100vh;
+            overflow: hidden;
+            pointer-events: none; /* Disable mouse interactions */
+        }
+
+        .top-bar, .bottom-bar {
+            background-color: #a0a0a0;
+            color: rgb(163, 1, 1);
+            font-size: 24px;
+            padding: 5px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .bottom-bar {
+            position: absolute;
+            bottom: 0;
+        }
+
+        .bottom-bar span {
+            color: rgb(151, 6, 6);
+            float: left;
+            margin-left: 20px;
+        }
+
+        .content {
+            position: absolute;
+            top: 50px;
+            left: 20px;
+            width: 60%;
+            text-align: left;
+            font-size: 28px;
+        }
+
+        .content p {
+            margin: 15px 0;
+        }
+
+        .status {
+            color: white;
+        }
+
+        .status-section {
+            margin-top: 20px;
+        }
+
+        .black-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: black;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gif {
+            transform: scale(1.1); /* Make gif 10% larger */
+        }
+
+        /* Windows 95 style window */
+        .windows95-window {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            background-color: #c0c0c0;
+            border: 2px solid #000;
+            font-family: "MS Sans Serif", sans-serif;
+            font-size: 16px;
+            display: none;
+            z-index: 10;
+        }
+
+        .windows95-header {
+            background: linear-gradient(to right, #000080, #4682b4); /* Gradient from dark to light blue */
+            color: white;
+            padding: 5px;
+            font-weight: bold;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+        }
+
+        .windows95-header img {
+            width: 16px; /* Icon size */
+            height: 16px;
+            margin-right: 10px;
+        }
+
+        .windows95-body {
+            padding: 20px;
+            background-color: white;
+            text-align: left;
+            color: black;
+        }
+
+        .windows95-body p {
+            margin: 0;
+        }
+
+        .close-button {
+            background-color: #a0a0a0;
+            border: 1px solid #808080;
+            padding: 3px 10px;
+            color: #808080;
+            font-size: 14px;
+            margin-left: auto;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">WINDOWS BOOT ERROR</div>
+    <div class="content">
+        <p>Windows Boot Manager has experienced a problem.</p>
+        
+        <div class="status-section">
+            <p>Status: <span class="status">0xc000000f</span></p>
+            <p>Info: An error occurred transferring execution.</p>
+        </div>
+
+        <br>
+        <p>You can try to recover the system with the Microsoft Windows System Recovery Tools. (You might need to restart the system manually.)</p>
+        <p>If the problem continues, please contact your system administrator or computer manufacturer.</p>
+    </div>
+    <div class="bottom-bar">
+        <span>SPACE=CONTINUE</span>
+    </div>
+
+    <!-- Black overlay with gif -->
+    <div class="black-overlay">
+        <img src="https://www.betaarchive.com/wiki/images/0/03/5048BootScreen.gif" class="gif" alt="Boot Screen">
+    </div>
+
+    <!-- Windows 95 Style Window -->
+    <div class="windows95-window">
+        <div class="windows95-header">
+            <img src="https://64.media.tumblr.com/b22e49d8f52d0e90857458021399339d/63c60cacbd7469c6-f8/s540x810/672e574b011045df3ff463ddc3ddc98f88725fbd.png" alt="Error Icon">
+            Error
+            <div class="close-button">X</div>
+        </div>
+        <div class="windows95-body">
+            <p>Your PC needs to be repaired urgently, a key Windows error has occurred.</p>
+        </div>
+    </div>
+
+    <script>
+        // Disable mouse interactions and clicks
+        document.body.style.pointerEvents = 'none';
+
+        // Spacebar functionality to show black overlay and gif
+        document.addEventListener('keydown', function(event) {
+            if (event.key === ' ') {
+                document.querySelector('.black-overlay').style.display = 'flex';
+                document.body.style.backgroundColor = 'black';
+                
+                // Set timeout to show Windows 95 style window after 10 seconds
+                setTimeout(function() {
+                    document.querySelector('.black-overlay').style.display = 'none'; // Hide gif
+                    document.querySelector('.windows95-window').style.display = 'block'; // Show error window
+                }, 10000); // 10 seconds
+            }
+        });
+    </script>
+</body>
+</html>
