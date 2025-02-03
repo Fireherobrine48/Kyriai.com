@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree Browser - Search Results</title>
+    <style>
+        body {
+            font-family: 'Tahoma', sans-serif;
+            background-color: #c0c0c0;
+            margin: 0;
+            padding: 0;
+        }
+        #header {
+            background-color: #006fa6;
+            color: white;
+            padding: 15px 0;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            padding: 20px;
+        }
+        .sidebar {
+            width: 20%;
+            background-color: #e0e0e0;
+            padding: 15px;
+            border: 2px solid #808080;
+        }
+        .content {
+            width: 75%;
+            background-color: white;
+            border: 2px solid #808080;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .search-bar {
+            width: 100%;
+            padding: 5px;
+            font-size: 16px;
+            border: 2px solid #808080;
+            margin-bottom: 20px;
+        }
+        .search-button {
+            width: 100px;
+            height: 36px;
+            background-color: #006fa6;
+            color: white;
+            border: 2px solid #808080;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .result {
+            margin-bottom: 15px;
+        }
+        a {
+            color: #0000FF;
+            text-decoration: none;
+        }
+        .footer {
+            font-size: 12px;
+            color: #808080;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .window-frame {
+            background-color: white;
+            border: 2px solid #808080;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            padding: 15px;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #000000;
+        }
+        .result-icons img {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .pagination a {
+            color: #006fa6;
+            margin: 0 5px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <div class="logo">Tree Browser</div>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <form action="engine.html" method="get">
+                <input type="text" name="q" class="search-bar" placeholder="Enter search term..." required>
+                <br>
+                <input type="submit" value="Search" class="search-button">
+            </form>
+        </div>
+
+        <div class="content">
+            <h2>Search Results for: <span id="queryTerm"></span></h2>
+            <div id="results"></div>
+
+            <div class="pagination">
+                <a href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 1998 Tree Browser - Running on Windows 98</p>
+    </div>
+
+    <script>
+        const searchParams = new URLSearchParams(window.location.search);
+        const query = searchParams.get("q");
+
+        if (query) {
+            document.getElementById("queryTerm").textContent = query;
+            const apiKey = "AIzaSyAV4fr0ISTAxTBO2Y3_ITMBZ7tqfiTYLaY";
+            const engineId = "80f8f2af8509e429d";
+            const url = `https://www.googleapis.com/customsearch/v1?q=${query}&key=${apiKey}&cx=${engineId}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const resultsDiv = document.getElementById("results");
+                    if (data.items) {
+                        data.items.forEach(item => {
+                            const resultDiv = document.createElement("div");
+                            resultDiv.classList.add("result");
+                            resultDiv.innerHTML = `
+                                <div class="result-icons">
+                                    <img src="https://www.google.com/s2/favicons?domain=${new URL(item.link).hostname}" alt="icon">
+                                    <a href="${item.link}" target="_blank"><b>${item.title}</b></a>
+                                </div>
+                                <p>${item.snippet}</p>
+                            `;
+                            resultsDiv.appendChild(resultDiv);
+                        });
+                    } else {
+                        resultsDiv.innerHTML = "No results found.";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching search results:", error);
+                });
+        }
+    </script>
+</body>
+</html>

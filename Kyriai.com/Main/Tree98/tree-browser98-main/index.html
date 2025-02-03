@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree Browser</title>
+    <style>
+        body {
+            font-family: 'Tahoma', sans-serif;
+            background-color: #c0c0c0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        #header {
+            background-color: #006fa6;
+            color: white;
+            padding: 15px 0;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 50px;
+        }
+        #main {
+            margin-top: 150px;
+        }
+        .search-bar {
+            width: 400px;
+            height: 30px;
+            padding: 5px;
+            font-size: 16px;
+            border: 2px solid #808080;
+            border-radius: 5px;
+        }
+        .search-button {
+            width: 100px;
+            height: 36px;
+            background-color: #006fa6;
+            color: white;
+            border: 2px solid #808080;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 12px;
+            color: #808080;
+        }
+        .window-frame {
+            background-color: white;
+            border: 2px solid #808080;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            padding: 20px;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <div class="logo">Tree Browser</div>
+    </div>
+
+    <div id="main">
+        <div class="window-frame">
+            <form action="engine.html" method="get">
+                <input type="text" name="q" class="search-bar" placeholder="Enter search term..." required>
+                <br><br>
+                <input type="submit" value="Search" class="search-button">
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 1998 Tree Browser - Running on Windows 98</p>
+    </div>
+</body>
+</html>
